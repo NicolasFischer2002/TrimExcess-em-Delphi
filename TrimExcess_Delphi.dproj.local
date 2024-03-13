@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2024/03/05 08:34:50.000.382,=C:\Users\NicolasFischer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/12 12:30:17.000.686,=C:\Users\NicolasFischer\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2024/03/12 12:30:52.000.778,C:\Users\NicolasFischer\Documents\Embarcadero\Studio\Projects\Unit1.pas=C:\Desenvolvimento\Delphi\TrimExcess em Delphi\U_Principal.pas</Transaction>
+    <Transaction>2024/03/12 12:30:52.000.778,C:\Users\NicolasFischer\Documents\Embarcadero\Studio\Projects\Unit1.dfm=C:\Desenvolvimento\Delphi\TrimExcess em Delphi\U_Principal.dfm</Transaction>
+    <Transaction>2024/03/12 12:30:59.000.522,C:\Users\NicolasFischer\Documents\Embarcadero\Studio\Projects\Project1.dproj=C:\Desenvolvimento\Delphi\TrimExcess em Delphi\TrimExcess_Delphi.dproj</Transaction>
+  </Transactions>
+</BorlandProject>

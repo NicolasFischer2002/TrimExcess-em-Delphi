@@ -1,0 +1,81 @@
+unit U_Principal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Generics.Collections;
+
+type
+  TForm1 = class(TForm)
+    Btn_TrimExcess: TButton;
+    procedure Btn_TrimExcessClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.dfm}
+
+{
+    Listas sempre alocam mais memória do que precisam, ou seja, sempre alocam 
+ mais espaço do que estão usando. Isso ocorre para evitar o redimensionamento
+ constante da estrutura, que ocasionaria em um custo maior de processamento.
+
+    Para driblar esse uso excessivo de memória, após abastecer a lista e se 
+ certificar de que a lista manterá este tamanho até o seu fim, pode ser utilizado
+ um método conhecido como TrimExcess, para igualar o tamanho da lista com o 
+ número de elementos dela.
+
+    Este método - TrimExcess - é bastante útil em situações em que a lista 
+ foi abastecida por completo ou teve seu tamanho setado de antemão, e após 
+ isso itens foram removidos ou não adicionados a ponto de o número real de 
+ itens não se aproximar da capacidade da lista, ocasionando em uma memória ociosa
+ que pode ser liberada.
+}
+
+procedure TForm1.Btn_TrimExcessClick(Sender: TObject);
+Var
+   ListaInteiros : TList<Integer>;
+   Capacidade    : Integer;
+   Comprimento   : Integer;
+   I             : Integer;
+begin
+     Try
+        Try
+           ListaInteiros := TList<Integer>.Create();
+
+           // Abastecendo a lista
+           for I := 1 to 2000 do
+               ListaInteiros.Add(I);
+
+           // O quanto de espaço que a lista alocou para evitar o 
+           // redimensionamento constante
+           Capacidade  := ListaInteiros.Capacity;
+
+           // O espaço real que a lista está ocupando
+           Comprimento := ListaInteiros.Count;
+
+           // Aplicando o TrimExcess
+           // TrimExcess: remove o espaço extra não utilizado de uma lista
+           ListaInteiros.Capacity := ListaInteiros.Count;
+           Capacidade := ListaInteiros.Capacity;
+        
+        Except
+          on Erro: Exception do
+          ShowMessage('Erro inesperado: ' + Erro.Message);
+        End;
+     
+     Finally
+        FreeAndNil(ListaInteiros);
+        ShowMessage('TrimExcess aplicado com sucesso!');
+     End;
+end;
+
+end.

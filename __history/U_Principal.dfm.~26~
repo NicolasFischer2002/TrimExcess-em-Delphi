@@ -1,4 +1,4 @@
-object FormPrincipal: TFormPrincipal
+object Form1: TForm1
   Left = 0
   Top = 0
   BorderStyle = bsDialog
@@ -16,19 +16,6 @@ object FormPrincipal: TFormPrincipal
   OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object Lbl_Estado: TLabel
-    Left = 79
-    Top = 121
-    Width = 132
-    Height = 22
-    Caption = 'Carregue a lista'
-    Font.Charset = ANSI_CHARSET
-    Font.Color = clWindowText
-    Font.Height = -19
-    Font.Name = 'Arial'
-    Font.Style = []
-    ParentFont = False
-  end
   object Btn_TrimExcessExemplo: TButton
     Left = 8
     Top = 154
@@ -39,22 +26,20 @@ object FormPrincipal: TFormPrincipal
     TabOrder = 0
     OnClick = Btn_TrimExcessExemploClick
   end
-  object Btn_CarregarLista: TButton
+  object Button1: TButton
     Left = 8
     Top = 8
     Width = 273
     Height = 49
     Caption = 'Carregar Lista'
     TabOrder = 1
-    OnClick = Btn_CarregarListaClick
   end
-  object Btn_TrimExcess: TButton
+  object Button2: TButton
     Left = 8
     Top = 63
     Width = 273
     Height = 49
     Caption = 'TrimExcess'
     TabOrder = 2
-    OnClick = Btn_TrimExcessClick
   end
 end

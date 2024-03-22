@@ -8,10 +8,18 @@ uses
 
 type
   TForm1 = class(TForm)
+    Btn_TrimExcessExemplo: TButton;
+    Btn_CarregarLista: TButton;
     Btn_TrimExcess: TButton;
+    Lbl_Estado: TLabel;
+    procedure Btn_TrimExcessExemploClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Btn_CarregarListaClick(Sender: TObject);
     procedure Btn_TrimExcessClick(Sender: TObject);
   private
     { Private declarations }
+    ListaInteirosPublica : TList<Integer>;
+    procedure AcaoLblEstado(Left: Integer; Texto: String);
   public
     { Public declarations }
   end;
@@ -40,7 +48,26 @@ implementation
  que pode ser liberada.
 }
 
+procedure TForm1.Btn_CarregarListaClick(Sender: TObject);
+Var
+   I : Integer;
+begin
+     // Adiciono 30 mil itens na lista para poder monitorar o crescimento
+     // do exe na memória e poder comprar logo na sequência o quanto de memória
+     // foi ganha com o TrimExcess
+     for I := 0 to 29999 do
+         ListaInteirosPublica.Add(I);
+
+     AcaoLblEstado(79, 'Lista Carregada!');
+end;
+
 procedure TForm1.Btn_TrimExcessClick(Sender: TObject);
+begin
+     ListaInteirosPublica.Capacity := ListaInteirosPublica.Count;
+     AcaoLblEstado(70, 'TrimExcess Aplicado!');
+end;
+
+procedure TForm1.Btn_TrimExcessExemploClick(Sender: TObject);
 Var
    ListaInteiros     : TList<Integer>;
    CapacidadeInicial : Integer;
@@ -75,8 +102,21 @@ begin
      
      Finally
         FreeAndNil(ListaInteiros);
-        ShowMessage('TrimExcess aplicado com sucesso! Espaço alocado antes do TrimExcess: ' + CapacidadeInicial);
+        ShowMessage('TrimExcess aplicado com sucesso! Espaço alocado antes do TrimExcess: '
+                    + CapacidadeInicial.ToString() + ' Espaço alocado pós TrimExcess: '
+                    + CapacidadeFinal.ToString());
      End;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+     ListaInteirosPublica := TList<Integer>.Create();
+end;
+
+procedure TForm1.AcaoLblEstado(Left: Integer; Texto: String);
+begin
+     Lbl_Estado.Left    := Left;
+     Lbl_Estado.Caption := Texto;
 end;
 
 end.

@@ -7,7 +7,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, System.Generics.Collections;
 
 type
-  TFormPrincipal = class(TForm)
+  TForm1 = class(TForm)
     Btn_TrimExcessExemplo: TButton;
     Btn_CarregarLista: TButton;
     Btn_TrimExcess: TButton;
@@ -25,7 +25,7 @@ type
   end;
 
 var
-  FormPrincipal: TFormPrincipal;
+  Form1: TForm1;
 
 implementation
 
@@ -48,7 +48,7 @@ implementation
  que pode ser liberada.
 }
 
-procedure TFormPrincipal.Btn_CarregarListaClick(Sender: TObject);
+procedure TForm1.Btn_CarregarListaClick(Sender: TObject);
 Var
    I : Integer;
 begin
@@ -58,16 +58,16 @@ begin
      for I := 0 to 29999 do
          ListaInteirosPublica.Add(I);
 
-     AcaoLblEstado(75, 'Lista Carregada!');
+     AcaoLblEstado(79, 'Lista Carregada!');
 end;
 
-procedure TFormPrincipal.Btn_TrimExcessClick(Sender: TObject);
+procedure TForm1.Btn_TrimExcessClick(Sender: TObject);
 begin
      ListaInteirosPublica.Capacity := ListaInteirosPublica.Count;
      AcaoLblEstado(50, 'TrimExcess Aplicado!');
 end;
 
-procedure TFormPrincipal.Btn_TrimExcessExemploClick(Sender: TObject);
+procedure TForm1.Btn_TrimExcessExemploClick(Sender: TObject);
 Var
    ListaInteiros     : TList<Integer>;
    CapacidadeInicial : Integer;
@@ -108,12 +108,12 @@ begin
      End;
 end;
 
-procedure TFormPrincipal.FormShow(Sender: TObject);
+procedure TForm1.FormShow(Sender: TObject);
 begin
      ListaInteirosPublica := TList<Integer>.Create();
 end;
 
-procedure TFormPrincipal.AcaoLblEstado(Left: Integer; Texto: String);
+procedure TForm1.AcaoLblEstado(Left: Integer; Texto: String);
 begin
      Lbl_Estado.Left    := Left;
      Lbl_Estado.Caption := Texto;

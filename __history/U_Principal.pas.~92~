@@ -8,10 +8,18 @@ uses
 
 type
   TForm1 = class(TForm)
+    Btn_TrimExcessExemplo: TButton;
+    Btn_CarregarLista: TButton;
     Btn_TrimExcess: TButton;
+    Lbl_Estado: TLabel;
+    procedure Btn_TrimExcessExemploClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure Btn_CarregarListaClick(Sender: TObject);
     procedure Btn_TrimExcessClick(Sender: TObject);
   private
     { Private declarations }
+    ListaInteirosPublica : TList<Integer>;
+    procedure AcaoLblEstado(Left: Integer; Texto: String);
   public
     { Public declarations }
   end;
@@ -36,16 +44,36 @@ implementation
     Este método - TrimExcess - é bastante útil em situações em que a lista 
  foi abastecida por completo ou teve seu tamanho setado de antemão, e após 
  isso itens foram removidos ou não adicionados a ponto de o número real de 
- itens se aproximar da capacidade da lista, ocasionando em uma memória ociosa 
+ itens não se aproximar da capacidade da lista, ocasionando em uma memória ociosa
  que pode ser liberada.
 }
 
-procedure TForm1.Btn_TrimExcessClick(Sender: TObject);
+procedure TForm1.Btn_CarregarListaClick(Sender: TObject);
 Var
-   ListaInteiros : TList<Integer>;
-   Capacidade    : Integer;
-   Comprimento   : Integer;
-   I             : Integer;
+   I : Integer;
+begin
+     // Adiciono 30 mil itens na lista para poder monitorar o crescimento
+     // do exe na memória e poder comprar logo na sequência o quanto de memória
+     // foi ganha com o TrimExcess
+     for I := 0 to 29999 do
+         ListaInteirosPublica.Add(I);
+
+     AcaoLblEstado(79, 'Lista Carregada!');
+end;
+
+procedure TForm1.Btn_TrimExcessClick(Sender: TObject);
+begin
+     ListaInteirosPublica.Capacity := ListaInteirosPublica.Count;
+     Lbl_Estado.Caption := 'TrimExcess aplicado!';
+end;
+
+procedure TForm1.Btn_TrimExcessExemploClick(Sender: TObject);
+Var
+   ListaInteiros     : TList<Integer>;
+   CapacidadeInicial : Integer;
+   CapacidadeFinal   : Integer;
+   Comprimento       : Integer;
+   I                 : Integer;
 begin
      Try
         Try
@@ -55,9 +83,9 @@ begin
            for I := 1 to 2000 do
                ListaInteiros.Add(I);
 
-           // O quanto de espaço que a lista alocou para evitar o 
+           // O quanto de espaço que a lista alocou para evitar o
            // redimensionamento constante
-           Capacidade  := ListaInteiros.Capacity;
+           CapacidadeInicial  := ListaInteiros.Capacity;
 
            // O espaço real que a lista está ocupando
            Comprimento := ListaInteiros.Count;
@@ -65,7 +93,7 @@ begin
            // Aplicando o TrimExcess
            // TrimExcess: remove o espaço extra não utilizado de uma lista
            ListaInteiros.Capacity := ListaInteiros.Count;
-           Capacidade := ListaInteiros.Capacity;
+           CapacidadeFinal := ListaInteiros.Capacity;
         
         Except
           on Erro: Exception do
@@ -74,8 +102,21 @@ begin
      
      Finally
         FreeAndNil(ListaInteiros);
-        ShowMessage('TrimExcess aplicado com sucesso!');
+        ShowMessage('TrimExcess aplicado com sucesso! Espaço alocado antes do TrimExcess: '
+                    + CapacidadeInicial.ToString() + ' Espaço alocado pós TrimExcess: '
+                    + CapacidadeFinal.ToString());
      End;
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+begin
+     ListaInteirosPublica := TList<Integer>.Create();
+end;
+
+procedure TForm1.AcaoLblEstado(Left: Integer; Texto: String);
+begin
+     Lbl_Estado.Left    := 79;
+     Lbl_Estado.Caption := 'Lista Carregada!';
 end;
 
 end.
